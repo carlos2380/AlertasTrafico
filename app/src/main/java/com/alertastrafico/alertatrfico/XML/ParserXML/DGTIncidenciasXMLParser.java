@@ -20,7 +20,7 @@ public class DGTIncidenciasXMLParser {
 
     private static final String ns = null;
 
-    private ArrayList<DGTIncidenciasAdapterXML> incidencias;
+    private static ArrayList<DGTIncidenciasAdapterXML> incidencias;
 
     public DGTIncidenciasXMLParser () {}
 
@@ -32,7 +32,6 @@ public class DGTIncidenciasXMLParser {
 
     public ArrayList<DGTIncidenciasAdapterXML> parse(InputStream in) throws XmlPullParserException, IOException {
         try {
-            incidencias = new ArrayList();
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
@@ -45,6 +44,7 @@ public class DGTIncidenciasXMLParser {
 
     private ArrayList<DGTIncidenciasAdapterXML> readRaiz(XmlPullParser parser) throws XmlPullParserException, IOException {
 
+        incidencias = new ArrayList<>();
         parser.require(XmlPullParser.START_TAG, ns, "raiz");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -53,7 +53,7 @@ public class DGTIncidenciasXMLParser {
             String name = parser.getName();
             // Starts by looking for the entry tag
             if (name.equals("incidencia")) {
-                incidencias.add(readIncidencia(parser));
+                this.incidencias.add(readIncidencia(parser));
             } else {
                 skip(parser);
             }
@@ -68,9 +68,7 @@ public class DGTIncidenciasXMLParser {
         DGTIncidenciasAdapterXML dgtIncidenciasAdapterXML = new DGTIncidenciasAdapterXML();
 
         parser.require(XmlPullParser.START_TAG, ns, "incidencia");
-        String title = null;
-        String summary = null;
-        String link = null;
+
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -78,7 +76,7 @@ public class DGTIncidenciasXMLParser {
             String name = parser.getName();
             if (name.equals("tipo")) {
                 dgtIncidenciasAdapterXML.setTipo(readString(parser, name));
-            } else if (name.equals("autonomia")) {
+            }/* else if (name.equals("autonomia")) {
                 dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
             } else if (name.equals("provincia")) {
                 dgtIncidenciasAdapterXML.setProvincia(readString(parser, name));
@@ -110,7 +108,7 @@ public class DGTIncidenciasXMLParser {
                 dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
             } else if (name.equals("tipolocalizacion")) {
                 dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
-            }else {
+            }*/else {
                 skip(parser);
             }
         }
