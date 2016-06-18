@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.text.ParseException;
 
 /**
  * Created by carlos on 18/06/2016.
@@ -23,7 +24,7 @@ public class XMLParseController {
         dgtIncidenciasXMLParser = new DGTIncidenciasXMLParser();
     }
 
-    public void parseDGTIncidenciasXMLParser(InputStream stream) throws IOException, XmlPullParserException {
+    public void parseDGTIncidenciasXMLParser(InputStream stream) throws IOException, XmlPullParserException, ParseException {
         dgtIncidenciasXMLParser.parse(stream);
     }
 

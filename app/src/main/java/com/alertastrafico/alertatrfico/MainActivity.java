@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<DGTIncidenciasAdapterXML> incis = xmlParseController.getDgtIncidenciasXMLParser().getIncidencias();
                 String s = "";
                 for (int i = 0; i < incis.size(); ++i){
-                    s += incis.get(i).getTipo() + " " + incis.get(i).getAutonomia() +"\n";
+                    s += incis.get(i).getTipo() + " " + incis.get(i).getAutonomia()+ " " + incis.get(i).getProvincia()+ " " + incis.get(i).getCausa()+ " " + incis.get(i).getPoblacion()+ " " +incis.get(i).getFechahora_ini()
+                            + " " +incis.get(i).getNivel()+ " " +incis.get(i).getCarretera()+ " " +incis.get(i).getPk_inicial()+ " " +incis.get(i).getPk_final()+ " " +incis.get(i).getSentido()+ " HACIAAA-> " +incis.get(i).getHacia()+ " <- " +incis.get(i).getRef_incidencia()
+                            + " " +incis.get(i).getVersion_incidencia()+ " " +incis.get(i).getX()+ " " +incis.get(i).getY()+ " " +incis.get(i).getTipolocalizacion()+ "\n\n";
                 }
                 textView.setText(s);
         }

@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DGTIncidenciasAdapterXML {
 
-    public Date fecha_hora;
+    public String fecha_hora;
     public String sistema;
 
     public String tipo;
@@ -19,7 +19,7 @@ public class DGTIncidenciasAdapterXML {
     public String provincia;
     public String causa;
     public String poblacion;
-    public Date fechahora_ini;
+    public String fechahora_ini;
     public String nivel;
     public String carretera;
     public float pk_inicial;
@@ -32,8 +32,8 @@ public class DGTIncidenciasAdapterXML {
     public float y;
 
     public DGTIncidenciasAdapterXML() {}
-    public DGTIncidenciasAdapterXML(Date fecha_hora, String sistema, String tipo, String autonomia, String provincia,
-                                    String causa, String poblacion, Date fechahora_ini, String nivel, String carretera,
+    public DGTIncidenciasAdapterXML(String fecha_hora, String sistema, String tipo, String autonomia, String provincia,
+                                    String causa, String poblacion, String fechahora_ini, String nivel, String carretera,
                                     float pk_inicial, float pk_final, String sentido, String hacia,
                                     String ref_incidencia, int version_incidencia,
                                     float x, float y, int tipolocalizacion) {
@@ -60,7 +60,7 @@ public class DGTIncidenciasAdapterXML {
         this.tipolocalizacion = tipolocalizacion;
     }
 
-    public void setFecha_hora(Date fecha_hora) {
+    public void setFecha_hora(String fecha_hora) {
         this.fecha_hora = fecha_hora;
     }
 
@@ -88,7 +88,7 @@ public class DGTIncidenciasAdapterXML {
         this.poblacion = poblacion;
     }
 
-    public void setFechahora_ini(Date fechahora_ini) {
+    public void setFechahora_ini(String fechahora_ini) {
         this.fechahora_ini = fechahora_ini;
     }
 
@@ -140,7 +140,7 @@ public class DGTIncidenciasAdapterXML {
 
 
 
-    public Date getFecha_hora() {
+    public String getFecha_hora() {
         return fecha_hora;
     }
 
@@ -168,7 +168,7 @@ public class DGTIncidenciasAdapterXML {
         return poblacion;
     }
 
-    public Date getFechahora_ini() {
+    public String getFechahora_ini() {
         return fechahora_ini;
     }
 

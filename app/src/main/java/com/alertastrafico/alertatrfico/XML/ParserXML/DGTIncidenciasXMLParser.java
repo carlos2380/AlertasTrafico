@@ -3,18 +3,19 @@ package com.alertastrafico.alertatrfico.XML.ParserXML;
 import android.util.Xml;
 
 import com.alertastrafico.alertatrfico.XML.AdapterXML.DGTIncidenciasAdapterXML;
-import com.alertastrafico.alertatrfico.XML.AdapterXML.DGTIncidenciasAdapterXML.*;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import static com.alertastrafico.alertatrfico.XML.UtilsXML.readString;
-import static com.alertastrafico.alertatrfico.XML.UtilsXML.skip;
+import static com.alertastrafico.alertatrfico.Utils.UtilsJava.stringToDate;
+import static com.alertastrafico.alertatrfico.Utils.UtilsXML.readString;
+import static com.alertastrafico.alertatrfico.Utils.UtilsXML.skip;
 
 /**
  * Created by carlos on 18/06/2016.
@@ -25,7 +26,9 @@ public class DGTIncidenciasXMLParser {
 
     private static ArrayList<DGTIncidenciasAdapterXML> incidencias;
 
-    public DGTIncidenciasXMLParser () {}
+    public DGTIncidenciasXMLParser () {
+
+    }
 
 
     /*Clase para TEST -BORRAR*/
@@ -33,7 +36,7 @@ public class DGTIncidenciasXMLParser {
         return incidencias;
     }
 
-    public ArrayList<DGTIncidenciasAdapterXML> parse(InputStream in) throws XmlPullParserException, IOException {
+    public ArrayList<DGTIncidenciasAdapterXML> parse(InputStream in) throws XmlPullParserException, IOException, ParseException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -45,7 +48,7 @@ public class DGTIncidenciasXMLParser {
         }
     }
 
-    private ArrayList<DGTIncidenciasAdapterXML> readRaiz(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private ArrayList<DGTIncidenciasAdapterXML> readRaiz(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
 
         incidencias = new ArrayList<>();
         parser.require(XmlPullParser.START_TAG, ns, "raiz");
@@ -66,7 +69,7 @@ public class DGTIncidenciasXMLParser {
 
     // Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
     // to their respective "read" methods for processing. Otherwise, skips the tag.
-    private DGTIncidenciasAdapterXML readIncidencia(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private DGTIncidenciasAdapterXML readIncidencia(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
 
         DGTIncidenciasAdapterXML dgtIncidenciasAdapterXML = new DGTIncidenciasAdapterXML();
 
@@ -81,37 +84,43 @@ public class DGTIncidenciasXMLParser {
                 dgtIncidenciasAdapterXML.setTipo(readString(parser, name, ns));
             } else if (name.equals("autonomia")) {
                 dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name, ns));
-            } /*else if (name.equals("provincia")) {
-                dgtIncidenciasAdapterXML.setProvincia(readString(parser, name));
+            } else if (name.equals("provincia")) {
+                dgtIncidenciasAdapterXML.setProvincia(readString(parser, name, ns));
             } else if (name.equals("causa")) {
-                dgtIncidenciasAdapterXML.setCausa(readString(parser, name));
+                dgtIncidenciasAdapterXML.setCausa(readString(parser, name, ns));
             } else if (name.equals("poblacion")) {
-                dgtIncidenciasAdapterXML.setPoblacion(readString(parser, name));
+                dgtIncidenciasAdapterXML.setPoblacion(readString(parser, name, ns));
             } else if (name.equals("fechahora_ini")) {
-                //dgtIncidenciasAdapterXML.setFechahora_ini(readString(parser, name));
+                dgtIncidenciasAdapterXML.setNivel(readString(parser, name, ns));
             } else if (name.equals("nivel")) {
-                dgtIncidenciasAdapterXML.setNivel(readString(parser, name));
+                dgtIncidenciasAdapterXML.setNivel(readString(parser, name, ns));
             } else if (name.equals("carretera")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                dgtIncidenciasAdapterXML.setCarretera(readString(parser, name, ns));
             } else if (name.equals("pk_inicial")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                Float pkI = Float.parseFloat(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setPk_inicial(pkI);
             } else if (name.equals("pk_final")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                Float pkF = Float.parseFloat(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setPk_final(pkF);
             } else if (name.equals("sentido")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                dgtIncidenciasAdapterXML.setSentido(readString(parser, name, ns));
             } else if (name.equals("hacia")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                dgtIncidenciasAdapterXML.setHacia(readString(parser, name, ns));
             } else if (name.equals("ref_incidencia")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                dgtIncidenciasAdapterXML.setRef_incidencia(readString(parser, name, ns));
             } else if (name.equals("version_incidencia")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                Integer vs = Integer.parseInt(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setVersion_incidencia(vs);
             } else if (name.equals("x")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                Float fx = Float.parseFloat(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setX(fx);
             } else if (name.equals("y")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
+                Float fy = Float.parseFloat(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setY(fy);
             } else if (name.equals("tipolocalizacion")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
-            }*/else {
+                Integer tip = Integer.parseInt(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setTipolocalizacion(tip);
+            }else {
                 skip(parser);
             }
         }

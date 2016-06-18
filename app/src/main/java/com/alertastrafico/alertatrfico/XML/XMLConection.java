@@ -50,8 +50,8 @@ public class XMLConection {
         try {
             URL url = new URL(myurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(100000 /* milliseconds */);
-            conn.setConnectTimeout(150000 /* milliseconds */);
+            conn.setReadTimeout(1000000 /* milliseconds */);
+            conn.setConnectTimeout(1500000 /* milliseconds */);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             // Starts the query
