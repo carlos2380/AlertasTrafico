@@ -27,7 +27,7 @@ public class DGTIncidenciasXMLParser {
     private static ArrayList<DGTIncidenciasAdapterXML> incidencias;
 
     public DGTIncidenciasXMLParser () {
-
+        incidencias = new ArrayList<>();
     }
 
 
@@ -50,7 +50,7 @@ public class DGTIncidenciasXMLParser {
 
     private ArrayList<DGTIncidenciasAdapterXML> readRaiz(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
 
-        incidencias = new ArrayList<>();
+
         parser.require(XmlPullParser.START_TAG, ns, "raiz");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -112,15 +112,15 @@ public class DGTIncidenciasXMLParser {
                 Integer vs = Integer.parseInt(readString(parser, name, ns));
                 dgtIncidenciasAdapterXML.setVersion_incidencia(vs);
             } else if (name.equals("x")) {
-                Float fx = Float.parseFloat(readString(parser, name, ns));
+                double fx = Double.parseDouble(readString(parser, name, ns));
                 dgtIncidenciasAdapterXML.setX(fx);
             } else if (name.equals("y")) {
-                Float fy = Float.parseFloat(readString(parser, name, ns));
+                double fy = Double.parseDouble(readString(parser, name, ns));
                 dgtIncidenciasAdapterXML.setY(fy);
             } else if (name.equals("tipolocalizacion")) {
                 Integer tip = Integer.parseInt(readString(parser, name, ns));
                 dgtIncidenciasAdapterXML.setTipolocalizacion(tip);
-            }else {
+            } else {
                 skip(parser);
             }
         }

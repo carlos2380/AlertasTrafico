@@ -14,9 +14,10 @@ public class TraficoDB extends SQLiteOpenHelper {
     public TraficoDB(Context context) {
         super(context, "Trafico", null, 1);
     }
-
+    private int id = 0;
     @Override public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE alertasTrafico ("+
+                "id REAL, " +
                 "autonomia TEXT, " +
                 "provincia TEXT, " +
                 "poblacion TEXT, " +
@@ -25,8 +26,8 @@ public class TraficoDB extends SQLiteOpenHelper {
                 "causa TEXT, " +
                 "nivel TEXT, " +
                 "carretera TEXT, " +
-                "km_inicial REAL, " +
-                "km_final REAL, " +
+                "kminicial REAL, " +
+                "kmfinal REAL, " +
                 "sentido TEXT, " +
                 "hacia TEXT, " +
                 "ref TEXT, " +
@@ -34,7 +35,7 @@ public class TraficoDB extends SQLiteOpenHelper {
                 "corx REAL, " +
                 "cory REAL, " +
                 "tipolocalizacion REAL, " +
-                "PRIMARY KEY (ref, version))");
+                "PRIMARY KEY (id))");
     }
 
     @Override    public void onUpgrade(SQLiteDatabase db, int intoldVersion, int newVersion) {
@@ -42,14 +43,16 @@ public class TraficoDB extends SQLiteOpenHelper {
     }
 
     public void setIncidencia(String tipo, String autonomia, String provincia,
-                              String causa, String poblacion, Date fechahora_ini, String nivel, String carretera,
-                              float pk_inicial, float pk_final, String sentido, String hacia,
+                              String causa, String poblacion, String fechahora_ini, String nivel, String carretera,
+                              double pk_inicial, double pk_final, String sentido, String hacia,
                               String ref_incidencia, int version_incidencia,
-                              float x, float y, int tipolocalizacion) {
+                              double x, double y, int tipolocalizacion) {
 
         SQLiteDatabase db = getReadableDatabase();
-        db.execSQL("INSERT INTO alertasTrafico (autonomia, provincia, poblacion, inicio, tipo, causa, nivel, carretera, km_inicial, km_final, sentido, hacia, ref, version, corx, cory, tipolocalizacion)  " +
-                "VALUES ('"+ autonomia + "', '" + provincia + "', '" + poblacion + "', '" + fechahora_ini + "', '" + tipo + "', '" + causa + "', '" + nivel + "', '" + carretera + "', '" + pk_inicial + "', '" + pk_final
-                + "', '" + sentido + "', '" + hacia + "', '" + ref_incidencia + "', '" + version_incidencia + "', '" + x + "', '" + y + "', '" + tipolocalizacion + "');");
+        db.execSQL("INSERT INTO alertasTrafico (id, autonomia, provincia, poblacion, inicio, tipo, causa, nivel, carretera, kminicial, kmfinal, sentido, hacia, ref, version, corx, cory, tipolocalizacion)  " +
+                "VALUES ('"+ String.valueOf(id) + "', '" + autonomia + "', '" + provincia + "', '" + poblacion + "', '" + fechahora_ini + "', '" + tipo + "', '" + causa + "', '" + nivel + "', '" + carretera + "', '" + String.valueOf(pk_inicial) + "', '" + String.valueOf(pk_final)
+                + "', '" + sentido + "', '" + hacia + "', '" + ref_incidencia + "', '" + String.valueOf(version_incidencia) + "', '" + String.valueOf(x) + "', '" + String.valueOf(y) + "', '" + String.valueOf(tipolocalizacion) + "');");
+
+        ++id;
     }
 }

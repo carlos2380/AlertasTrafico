@@ -43,9 +43,6 @@ public class XMLConection {
 
     private InputStream downloadUrl(String myurl) throws IOException {
         InputStream stream = null;
-        // Only display the first 500 characters of the retrieved
-        // web page content.
-        int len = 400000;
 
         try {
             URL url = new URL(myurl);
@@ -58,9 +55,9 @@ public class XMLConection {
             conn.connect();
             return conn.getInputStream();
         } finally {
-            if (stream != null) {
+            /*if (stream != null) {
                 stream.close();
-            }
+            }*/
         }
     }
 

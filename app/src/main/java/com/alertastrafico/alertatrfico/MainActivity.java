@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alertastrafico.alertatrfico.DataBase.TraficoDB;
 import com.alertastrafico.alertatrfico.XML.AdapterXML.DGTIncidenciasAdapterXML;
 import com.alertastrafico.alertatrfico.XML.XMLConection;
 import com.alertastrafico.alertatrfico.XML.XMLParseController;
@@ -19,13 +20,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
+    private TraficoDB traficoDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.text);
+        traficoDB = new TraficoDB(getApplicationContext());
         new DownloadWebpageTask().execute();
+
 
     }
 
@@ -40,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
             try {
                 xmlConection.conectar(getApplicationContext());
                 xmlParseController.parseDGTIncidenciasXMLParser(xmlConection.getResult());
+                ArrayList<DGTIncidenciasAdapterXML> incis = xmlParseController.getDgtIncidenciasXMLParser().getIncidencias();
+                for (int i = 0; i < incis.size(); ++i){
+                    System.out.println("HOLAAAA " + i);
+                    traficoDB.setIncidencia(incis.get(i).getTipo(), incis.get(i).getAutonomia(), incis.get(i).getProvincia(), incis.get(i).getCausa(), incis.get(i).getPoblacion(), incis.get(i).getFechahora_ini(),
+                            incis.get(i).getNivel(), incis.get(i).getCarretera(), incis.get(i).getPk_inicial(), incis.get(i).getPk_final(), incis.get(i).getSentido(), incis.get(i).getHacia(),
+                            incis.get(i).getRef_incidencia(), incis.get(i).getVersion_incidencia(), incis.get(i).getX(), incis.get(i).getY(), incis.get(i).getTipolocalizacion());
+                }
             } catch (IOException e) {
                  return "Unable to retrieve web page. URL may be invalid.";
             } catch (Exception e) {
@@ -48,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
         // onPostExecute displays the results of the AsyncTask.
-        @Override
+        // @Override
         protected void onPostExecute(String result) {
 
                 ArrayList<DGTIncidenciasAdapterXML> incis = xmlParseController.getDgtIncidenciasXMLParser().getIncidencias();

@@ -22,21 +22,21 @@ public class DGTIncidenciasAdapterXML {
     public String fechahora_ini;
     public String nivel;
     public String carretera;
-    public float pk_inicial;
-    public float pk_final;
+    public double pk_inicial;
+    public double pk_final;
     public String sentido;
     public String hacia;
     public String ref_incidencia;
     public int version_incidencia;
-    public float x;
-    public float y;
+    public double x;
+    public double y;
 
     public DGTIncidenciasAdapterXML() {}
     public DGTIncidenciasAdapterXML(String fecha_hora, String sistema, String tipo, String autonomia, String provincia,
                                     String causa, String poblacion, String fechahora_ini, String nivel, String carretera,
-                                    float pk_inicial, float pk_final, String sentido, String hacia,
+                                    double pk_inicial, double pk_final, String sentido, String hacia,
                                     String ref_incidencia, int version_incidencia,
-                                    float x, float y, int tipolocalizacion) {
+                                    double x, double y, int tipolocalizacion) {
 
         this.fecha_hora = fecha_hora;
         this.sistema = sistema;
@@ -100,11 +100,11 @@ public class DGTIncidenciasAdapterXML {
         this.carretera = carretera;
     }
 
-    public void setPk_inicial(float pk_inicial) {
+    public void setPk_inicial(double pk_inicial) {
         this.pk_inicial = pk_inicial;
     }
 
-    public void setPk_final(float pk_final) {
+    public void setPk_final(double pk_final) {
         this.pk_final = pk_final;
     }
 
@@ -124,11 +124,11 @@ public class DGTIncidenciasAdapterXML {
         this.version_incidencia = version_incidencia;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -180,11 +180,11 @@ public class DGTIncidenciasAdapterXML {
         return carretera;
     }
 
-    public float getPk_inicial() {
+    public double getPk_inicial() {
         return pk_inicial;
     }
 
-    public float getPk_final() {
+    public double getPk_final() {
         return pk_final;
     }
 
@@ -204,11 +204,11 @@ public class DGTIncidenciasAdapterXML {
         return version_incidencia;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
