@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<DGTIncidenciasAdapterXML> incis = xmlParseController.getDgtIncidenciasXMLParser().getIncidencias();
                 String s = "";
                 for (int i = 0; i < incis.size(); ++i){
-                    s += (incis.get(i)).getTipo() + " \n";
+                    s += incis.get(i).getTipo() + " " + incis.get(i).getAutonomia() +"\n";
                 }
                 textView.setText(s);
         }

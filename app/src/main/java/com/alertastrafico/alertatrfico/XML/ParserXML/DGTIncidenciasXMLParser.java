@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alertastrafico.alertatrfico.XML.UtilsXML.readString;
+import static com.alertastrafico.alertatrfico.XML.UtilsXML.skip;
+
 /**
  * Created by carlos on 18/06/2016.
  */
@@ -75,10 +78,10 @@ public class DGTIncidenciasXMLParser {
             }
             String name = parser.getName();
             if (name.equals("tipo")) {
-                dgtIncidenciasAdapterXML.setTipo(readString(parser, name));
-            }/* else if (name.equals("autonomia")) {
-                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name));
-            } else if (name.equals("provincia")) {
+                dgtIncidenciasAdapterXML.setTipo(readString(parser, name, ns));
+            } else if (name.equals("autonomia")) {
+                dgtIncidenciasAdapterXML.setAutonomia(readString(parser, name, ns));
+            } /*else if (name.equals("provincia")) {
                 dgtIncidenciasAdapterXML.setProvincia(readString(parser, name));
             } else if (name.equals("causa")) {
                 dgtIncidenciasAdapterXML.setCausa(readString(parser, name));
@@ -114,40 +117,5 @@ public class DGTIncidenciasXMLParser {
         }
         return dgtIncidenciasAdapterXML;
     }
-    // Processes title tags in the feed.
-    private String readString(XmlPullParser parser, String name) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, name);
-        String contentString = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, name);
-        return contentString;
-    }
 
-    // For the tags title and summary, extracts their text values.
-    private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
-        String result = "";
-        if (parser.next() == XmlPullParser.TEXT) {
-            result = parser.getText();
-            parser.nextTag();
-        }
-        return result;
-    }
-
-
-    //Saltarse tags que no queremos
-    private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
-        if (parser.getEventType() != XmlPullParser.START_TAG) {
-            throw new IllegalStateException();
-        }
-        int depth = 1;
-        while (depth != 0) {
-            switch (parser.next()) {
-                case XmlPullParser.END_TAG:
-                    depth--;
-                    break;
-                case XmlPullParser.START_TAG:
-                    depth++;
-                    break;
-            }
-        }
-    }
 }
