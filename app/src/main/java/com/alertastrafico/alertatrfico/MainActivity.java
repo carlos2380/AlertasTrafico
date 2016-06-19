@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 xmlParseController.parseDGTIncidenciasXMLParser(xmlConection.getResult());
                 ArrayList<DGTIncidenciasAdapterXML> incis = xmlParseController.getDgtIncidenciasXMLParser().getIncidencias();
                 for (int i = 0; i < incis.size(); ++i){
-                    System.out.println("HOLAAAA " + i);
                     traficoDB.setIncidencia(incis.get(i).getTipo(), incis.get(i).getAutonomia(), incis.get(i).getProvincia(), incis.get(i).getCausa(), incis.get(i).getPoblacion(), incis.get(i).getFechahora_ini(),
                             incis.get(i).getNivel(), incis.get(i).getCarretera(), incis.get(i).getPk_inicial(), incis.get(i).getPk_final(), incis.get(i).getSentido(), incis.get(i).getHacia(),
                             incis.get(i).getRef_incidencia(), incis.get(i).getVersion_incidencia(), incis.get(i).getX(), incis.get(i).getY(), incis.get(i).getTipolocalizacion());

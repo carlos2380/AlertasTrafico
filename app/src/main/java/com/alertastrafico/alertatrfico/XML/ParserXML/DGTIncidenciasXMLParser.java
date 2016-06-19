@@ -91,17 +91,15 @@ public class DGTIncidenciasXMLParser {
             } else if (name.equals("poblacion")) {
                 dgtIncidenciasAdapterXML.setPoblacion(readString(parser, name, ns));
             } else if (name.equals("fechahora_ini")) {
-                dgtIncidenciasAdapterXML.setNivel(readString(parser, name, ns));
+                dgtIncidenciasAdapterXML.setFechahora_ini(readString(parser, name, ns));
             } else if (name.equals("nivel")) {
                 dgtIncidenciasAdapterXML.setNivel(readString(parser, name, ns));
             } else if (name.equals("carretera")) {
                 dgtIncidenciasAdapterXML.setCarretera(readString(parser, name, ns));
             } else if (name.equals("pk_inicial")) {
-                Float pkI = Float.parseFloat(readString(parser, name, ns));
-                dgtIncidenciasAdapterXML.setPk_inicial(pkI);
+                dgtIncidenciasAdapterXML.setPk_inicial(readString(parser, name, ns));
             } else if (name.equals("pk_final")) {
-                Float pkF = Float.parseFloat(readString(parser, name, ns));
-                dgtIncidenciasAdapterXML.setPk_final(pkF);
+                dgtIncidenciasAdapterXML.setPk_final(readString(parser, name, ns));
             } else if (name.equals("sentido")) {
                 dgtIncidenciasAdapterXML.setSentido(readString(parser, name, ns));
             } else if (name.equals("hacia")) {
@@ -109,17 +107,13 @@ public class DGTIncidenciasXMLParser {
             } else if (name.equals("ref_incidencia")) {
                 dgtIncidenciasAdapterXML.setRef_incidencia(readString(parser, name, ns));
             } else if (name.equals("version_incidencia")) {
-                Integer vs = Integer.parseInt(readString(parser, name, ns));
-                dgtIncidenciasAdapterXML.setVersion_incidencia(vs);
+                dgtIncidenciasAdapterXML.setVersion_incidencia(readString(parser, name, ns));
             } else if (name.equals("x")) {
-                double fx = Double.parseDouble(readString(parser, name, ns));
-                dgtIncidenciasAdapterXML.setX(fx);
+                dgtIncidenciasAdapterXML.setX(readString(parser, name, ns));
             } else if (name.equals("y")) {
-                double fy = Double.parseDouble(readString(parser, name, ns));
-                dgtIncidenciasAdapterXML.setY(fy);
+                dgtIncidenciasAdapterXML.setY(readString(parser, name, ns));
             } else if (name.equals("tipolocalizacion")) {
-                Integer tip = Integer.parseInt(readString(parser, name, ns));
-                dgtIncidenciasAdapterXML.setTipolocalizacion(tip);
+                dgtIncidenciasAdapterXML.setTipolocalizacion(readString(parser, name, ns));
             } else {
                 skip(parser);
             }

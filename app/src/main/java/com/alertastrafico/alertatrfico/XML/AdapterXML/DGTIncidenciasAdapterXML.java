@@ -22,21 +22,21 @@ public class DGTIncidenciasAdapterXML {
     public String fechahora_ini;
     public String nivel;
     public String carretera;
-    public double pk_inicial;
-    public double pk_final;
+    public String pk_inicial;
+    public String pk_final;
     public String sentido;
     public String hacia;
     public String ref_incidencia;
-    public int version_incidencia;
-    public double x;
-    public double y;
+    public String version_incidencia;
+    public String x;
+    public String y;
 
     public DGTIncidenciasAdapterXML() {}
     public DGTIncidenciasAdapterXML(String fecha_hora, String sistema, String tipo, String autonomia, String provincia,
                                     String causa, String poblacion, String fechahora_ini, String nivel, String carretera,
-                                    double pk_inicial, double pk_final, String sentido, String hacia,
-                                    String ref_incidencia, int version_incidencia,
-                                    double x, double y, int tipolocalizacion) {
+                                    String pk_inicial, String pk_final, String sentido, String hacia,
+                                    String ref_incidencia, String version_incidencia,
+                                    String x, String y, String tipolocalizacion) {
 
         this.fecha_hora = fecha_hora;
         this.sistema = sistema;
@@ -100,11 +100,11 @@ public class DGTIncidenciasAdapterXML {
         this.carretera = carretera;
     }
 
-    public void setPk_inicial(double pk_inicial) {
+    public void setPk_inicial(String pk_inicial) {
         this.pk_inicial = pk_inicial;
     }
 
-    public void setPk_final(double pk_final) {
+    public void setPk_final(String pk_final) {
         this.pk_final = pk_final;
     }
 
@@ -120,23 +120,23 @@ public class DGTIncidenciasAdapterXML {
         this.ref_incidencia = ref_incidencia;
     }
 
-    public void setVersion_incidencia(int version_incidencia) {
+    public void setVersion_incidencia(String version_incidencia) {
         this.version_incidencia = version_incidencia;
     }
 
-    public void setX(double x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public void setY(double y) {
+    public void setY(String y) {
         this.y = y;
     }
 
-    public void setTipolocalizacion(int tipolocalizacion) {
+    public void setTipolocalizacion(String tipolocalizacion) {
         this.tipolocalizacion = tipolocalizacion;
     }
 
-    public int tipolocalizacion;
+    public String tipolocalizacion;
 
 
 
@@ -180,11 +180,11 @@ public class DGTIncidenciasAdapterXML {
         return carretera;
     }
 
-    public double getPk_inicial() {
+    public String getPk_inicial() {
         return pk_inicial;
     }
 
-    public double getPk_final() {
+    public String getPk_final() {
         return pk_final;
     }
 
@@ -200,19 +200,19 @@ public class DGTIncidenciasAdapterXML {
         return ref_incidencia;
     }
 
-    public int getVersion_incidencia() {
+    public String getVersion_incidencia() {
         return version_incidencia;
     }
 
-    public double getX() {
+    public String getX() {
         return x;
     }
 
-    public double getY() {
+    public String getY() {
         return y;
     }
 
-    public int getTipolocalizacion() {
+    public String getTipolocalizacion() {
         return tipolocalizacion;
     }
 
