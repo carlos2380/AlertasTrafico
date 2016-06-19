@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
 
                 Territorio selectTerritorio = (Territorio) lvTerritorios.getItemAtPosition(position);
+
+                if(selectTerritorio.getTipo().equals("Autonomía")){
+                    helperDB.selectAutonomia(selectTerritorio.getNombre());
+                }
+                new LoadAdapter().execute("");
                 Toast savedToast = Toast.makeText(getApplicationContext(),
                         "Territorio > " + selectTerritorio.getNombre(), Toast.LENGTH_SHORT);
                 savedToast.show();

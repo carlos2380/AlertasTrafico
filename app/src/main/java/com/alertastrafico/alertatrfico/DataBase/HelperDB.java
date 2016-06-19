@@ -42,9 +42,13 @@ public class HelperDB extends SQLiteOpenHelper {
                 "cory REAL, " +
                 "tipolocalizacion INTEGER)");
 
-        db.execSQL("CREATE TABLE poblaciones (autonomia TEXT, autonomia_simple TEXT, provincia TEXT, provincia_simple TEXT, poblacion TEXT, poblacion_simple TEXT)");
-
-        addProvincias(db);
+        db.execSQL("CREATE TABLE territorios (autonomia TEXT, autonomia_simple TEXT, provincia TEXT, provincia_simple TEXT, poblacion TEXT, poblacion_simple TEXT)");
+        db.execSQL("CREATE TABLE territoriosNoSeleccionados (autonomia TEXT, autonomia_simple TEXT, provincia TEXT, provincia_simple TEXT, poblacion TEXT, poblacion_simple TEXT)");
+        db.execSQL("CREATE TABLE territoriosSeleccionados (tipo TEXT, nombre TEXT, nombre_simple TEXT)");
+        
+        
+        addTerritorios(db);
+        addTerritoriosNoSeleccionados(db);
     }
 
 
@@ -88,115 +92,238 @@ public class HelperDB extends SQLiteOpenHelper {
         db.insert("alertasTrafico", null, contentValues);
     }
 
-    private void addProvincias(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+    private void addTerritorios(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                     "VALUES ('Andalucía', 'andalucia', 'Almería', 'almeria');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Granada', 'granada');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Córdoba', 'cordoba');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Jaén', 'jaen');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Sevilla', 'sevilla');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Málaga', 'malaga');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Cádiz', 'cadiz');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Andalucía', 'andalucia', 'Huelva', 'huelva');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Aragón', 'aragon', 'Huesca', 'huesca');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Aragón', 'aragon', 'Zaragoza', 'zaragoza');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Aragón', 'aragon', 'Teruel', 'teruel');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Baleares', 'baleares', 'Baleares', 'baleares');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Canarias', 'canarias', 'Las Palmas de Gran Canaria', 'gran canaria');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Canarias', 'canaria', 'Fuenteventura', 'fuenteventura');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Canarias', 'canarias', 'Lanzarote', 'lanzarote');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Cantabria', 'cantabria', 'Santander', 'santander');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Toledo', 'toledo');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Ciuidad Real', 'cudad%real');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Cuenca', 'cuenca');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Guadalajara', 'guadalajara');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla la Mancha', 'castilla%la%mancha', 'Albacete', 'albacete');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'León', 'leon');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Palencia', 'palencia');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Salamanca', 'salamanca');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Burgos', 'burgos');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Zamora', 'zamora');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Valladolid', 'valladolid');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Soria', 'soria');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Segovia', 'segovia');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Ávila', 'avila');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Cataluña', 'cataluña', 'Barcelona', 'barcelona');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Cataluña', 'cataluña', 'Lérida', 'lerida');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Cataluña', 'cataluña', 'Gerona', 'gerona');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Cataluña', 'cataluña', 'Tarragona', 'tarragona');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Extremadura', 'extremadura', 'Cáceres', 'caceres');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Extremadura', 'extremadura', 'Badajoz', 'badajoz');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Galicia', 'galicia', 'La Coruña', 'coruña');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Galicia', 'galicia', 'Lugo', 'lugo');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Galicia', 'galicia', 'Orense', 'orense');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Galicia', 'galicia', 'Pontevedra', 'pontevedra');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('La Riojo', 'rioja', 'La Rioja', 'rioja');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Comunidad de Madrid', 'madrid', 'Madrid', 'madrid');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Navarra', 'navarra', 'Pamplona', 'pamplona');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('País Vasco', 'pais%vasco', 'Álava', 'alava');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('País Vasco', 'pais%vasco', 'Guipúzcoa', 'guipuzcoa');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('País Vasco', 'pais%vasco', 'Vizcaya ', 'vizcaya ');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Región de Murcia', 'region%murcia', 'Murcia', 'murcia');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Castellón', 'castellon');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Valencia', 'valencia');");
-        db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
+        db.execSQL("INSERT INTO territorios (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Alicante', 'alicante');");
     }
 
+    private void addTerritoriosNoSeleccionados(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Almería', 'almeria');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Granada', 'granada');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Córdoba', 'cordoba');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Jaén', 'jaen');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Sevilla', 'sevilla');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Málaga', 'malaga');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Cádiz', 'cadiz');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Andalucía', 'andalucia', 'Huelva', 'huelva');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Aragón', 'aragon', 'Huesca', 'huesca');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Aragón', 'aragon', 'Zaragoza', 'zaragoza');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Aragón', 'aragon', 'Teruel', 'teruel');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Baleares', 'baleares', 'Baleares', 'baleares');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Canarias', 'canarias', 'Las Palmas de Gran Canaria', 'gran canaria');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Canarias', 'canaria', 'Fuenteventura', 'fuenteventura');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Canarias', 'canarias', 'Lanzarote', 'lanzarote');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Cantabria', 'cantabria', 'Santander', 'santander');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Toledo', 'toledo');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Ciuidad Real', 'cudad%real');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Cuenca', 'cuenca');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla la Mancha', 'castilla%mancha', 'Guadalajara', 'guadalajara');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla la Mancha', 'castilla%la%mancha', 'Albacete', 'albacete');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'León', 'leon');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Palencia', 'palencia');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Salamanca', 'salamanca');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Burgos', 'burgos');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Zamora', 'zamora');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Valladolid', 'valladolid');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Soria', 'soria');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Segovia', 'segovia');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Castilla y Leon', 'castilla%y%leon', 'Ávila', 'avila');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Cataluña', 'cataluña', 'Barcelona', 'barcelona');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Cataluña', 'cataluña', 'Lérida', 'lerida');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Cataluña', 'cataluña', 'Gerona', 'gerona');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Cataluña', 'cataluña', 'Tarragona', 'tarragona');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Extremadura', 'extremadura', 'Cáceres', 'caceres');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Extremadura', 'extremadura', 'Badajoz', 'badajoz');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Galicia', 'galicia', 'La Coruña', 'coruña');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Galicia', 'galicia', 'Lugo', 'lugo');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Galicia', 'galicia', 'Orense', 'orense');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Galicia', 'galicia', 'Pontevedra', 'pontevedra');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('La Riojo', 'rioja', 'La Rioja', 'rioja');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Comunidad de Madrid', 'madrid', 'Madrid', 'madrid');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Navarra', 'navarra', 'Pamplona', 'pamplona');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('País Vasco', 'pais%vasco', 'Álava', 'alava');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('País Vasco', 'pais%vasco', 'Guipúzcoa', 'guipuzcoa');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('País Vasco', 'pais%vasco', 'Vizcaya ', 'vizcaya ');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Región de Murcia', 'region%murcia', 'Murcia', 'murcia');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Castellón', 'castellon');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Valencia', 'valencia');");
+        db.execSQL("INSERT INTO territoriosNoSeleccionados (autonomia, autonomia_simple, provincia, provincia_simple)" +
+                "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Alicante', 'alicante');");
+    }
+
+
+    public void selectAutonomia(String dato) {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT DISTINCT  autonomia, autonomia_simple FROM territoriosNoSeleccionados WHERE autonomia = '" + dato + "';";
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToNext()){
+            String nombre = cursor.getString(0);
+            String nombre_simple = cursor.getString(1);
+            String tipo = "Autonomia";
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("tipo", tipo);
+            contentValues.put("nombre", nombre);
+            contentValues.put("nombre_simple", nombre_simple);
+            db.insert("territoriosSeleccionados", null, contentValues);
+            db.execSQL("DELETE FROM territoriosNoSeleccionados WHERE autonomia = '" + dato + "';");
+
+        }
+        cursor.close();
+    }
     public List<Territorio> getTerritorios(String entrada) {
 
         List<Territorio> territorios = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT DISTINCT  autonomia FROM poblaciones WHERE autonomia_simple LIKE '%" + entrada + "%';";
+        String query = "SELECT DISTINCT  autonomia FROM territoriosNoSeleccionados WHERE autonomia_simple LIKE '%" + entrada + "%';";
 
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext()){
@@ -211,7 +338,7 @@ public class HelperDB extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        String query2 = "SELECT DISTINCT  autonomia, provincia FROM poblaciones WHERE provincia_simple LIKE '%" + entrada + "%';";
+        String query2 = "SELECT DISTINCT  autonomia, provincia FROM territoriosNoSeleccionados WHERE provincia_simple LIKE '%" + entrada + "%';";
 
         Cursor cursor2 = db.rawQuery(query2,null);
         while (cursor2.moveToNext()){
@@ -226,7 +353,7 @@ public class HelperDB extends SQLiteOpenHelper {
         }
         cursor2.close();
 
-        String query3 = "SELECT DISTINCT  provincia, poblacion FROM poblaciones WHERE poblacion_simple LIKE '%" + entrada + "%';";
+        String query3 = "SELECT DISTINCT  provincia, poblacion FROM territoriosNoSeleccionados WHERE poblacion_simple LIKE '%" + entrada + "%';";
 
         Cursor cursor3 = db.rawQuery(query3,null);
         while (cursor3.moveToNext()){
