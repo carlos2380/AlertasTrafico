@@ -2,10 +2,15 @@ package com.alertastrafico.alertatrfico.DataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.alertastrafico.alertatrfico.Model.Territorio;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by carlos on 18/06/2016.
@@ -185,4 +190,59 @@ public class HelperDB extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO poblaciones (autonomia, autonomia_simple, provincia, provincia_simple)" +
                 "VALUES ('Comunidad Valenciana', 'comunidad%valenciana', 'Alicante', 'alicante');");
     }
+
+    public List<Territorio> getTerritorios(String entrada) {
+
+        List<Territorio> territorios = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT DISTINCT  autonomia FROM poblaciones WHERE autonomia_simple LIKE '%" + entrada + "%';";
+
+        Cursor cursor = db.rawQuery(query,null);
+        while (cursor.moveToNext()){
+            Territorio territorio = new Territorio();
+            String tipo = "Autonomía";
+            String nombre = cursor.getString(0);
+            String padre = " ";
+            territorio.setTipo(tipo);
+            territorio.setNombre(nombre);
+            territorio.setPadre(padre);
+            territorios.add(territorio);
+        }
+        cursor.close();
+
+        String query2 = "SELECT DISTINCT  autonomia, provincia FROM poblaciones WHERE provincia_simple LIKE '%" + entrada + "%';";
+
+        Cursor cursor2 = db.rawQuery(query2,null);
+        while (cursor2.moveToNext()){
+            Territorio territorio = new Territorio();
+            String tipo = "Provincia";
+            String nombre = cursor2.getString(1);
+            String padre = cursor2.getString(0);;
+            territorio.setTipo(tipo);
+            territorio.setNombre(nombre);
+            territorio.setPadre(padre);
+            territorios.add(territorio);
+        }
+        cursor2.close();
+
+        String query3 = "SELECT DISTINCT  provincia, poblacion FROM poblaciones WHERE poblacion_simple LIKE '%" + entrada + "%';";
+
+        Cursor cursor3 = db.rawQuery(query3,null);
+        while (cursor3.moveToNext()){
+            Territorio territorio = new Territorio();
+            String tipo = "Municipio";
+            String nombre = cursor3.getString(1);
+            String padre = cursor3.getString(0);;
+            territorio.setTipo(tipo);
+            territorio.setNombre(nombre);
+            territorio.setPadre(padre);
+            territorios.add(territorio);
+        }
+        cursor3.close();
+
+        db.close();
+        return territorios;
+    }
+
 }

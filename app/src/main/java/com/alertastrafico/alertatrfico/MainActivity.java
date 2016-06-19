@@ -5,20 +5,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alertastrafico.alertatrfico.Adapters.MyCustomAdapterListPoblacion;
 import com.alertastrafico.alertatrfico.DataBase.HelperDB;
+import com.alertastrafico.alertatrfico.Model.Territorio;
 import com.alertastrafico.alertatrfico.XML.XMLConection;
 import com.alertastrafico.alertatrfico.XML.XMLParseController;
 
 import java.io.IOException;
+import java.util.List;
+
+import static com.alertastrafico.alertatrfico.Utils.UtilsJava.StringForDB;
 
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private HelperDB helperDB;
     private EditText editText;
+    private ListView lvTerritorios;
+
+    private MyCustomAdapterListPoblacion adapterListPoblacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.text);
         editText = (EditText) findViewById(R.id.editText);
         helperDB = new HelperDB(getApplicationContext());
+        lvTerritorios = (ListView) findViewById(R.id.listView) ;
         new DownloadWebpageTask().execute();
         loadListExpandable();
 
@@ -44,8 +57,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 textView.setText(editText.getText().toString());
+                String content = editText.getText().toString();
+                new LoadAdapter().execute(content);
+                /*//data = StringForDB(content[0]);
+                List<Territorio> territorios = helperDB.getTerritorios(content);
+                adapterListPoblacion = new MyCustomAdapterListPoblacion(
+                        getApplicationContext(),
+                        territorios);
+                lvTerritorios.setAdapter(adapterListPoblacion);*/
             }
         });
+
+
+
+        lvTerritorios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Territorio selectTerritorio = (Territorio) lvTerritorios.getItemAtPosition(position);
+                Toast savedToast = Toast.makeText(getApplicationContext(),
+                        "Territorio > " + selectTerritorio.getNombre(), Toast.LENGTH_SHORT);
+                savedToast.show();
+
+            }
+        });
+
+
 
     }
 
@@ -76,4 +113,27 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText("FINITO");
         }
     }
+
+    private class LoadAdapter extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... content) {
+
+            String data;
+            data = StringForDB(content[0]);
+            List<Territorio> territorios = helperDB.getTerritorios(data);
+            adapterListPoblacion = new MyCustomAdapterListPoblacion(
+                    getApplicationContext(),
+                    territorios);
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            lvTerritorios.setAdapter(adapterListPoblacion);
+        }
+    }
+
 }

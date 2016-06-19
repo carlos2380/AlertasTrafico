@@ -16,4 +16,19 @@ public class UtilsJava {
         Date date = formatter.parse(fecha);
         return date;
     }
+
+    static public String StringForDB(String str){
+        // Cadena de caracteres original a sustituir.
+        String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜ QWERTYUIOPASDFGHJKLÑÇZXCVBNM";
+        // Cadena de caracteres ASCII que reemplazarán los originales.
+        String modificacion = "aaaeeeiiiooouuunAAAEEEIIIOOOUUU%qwertyuiopasdfghjklñçzxcvbnm";
+        String salida = str;
+        for (int i=0; i<original.length(); i++) {
+            // Reemplazamos los caracteres especiales.
+            salida = salida.replace(original.charAt(i), modificacion.charAt(i));
+        }//for i
+        return salida;
+    }
+
+
 }
