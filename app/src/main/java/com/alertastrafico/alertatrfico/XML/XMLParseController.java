@@ -1,17 +1,12 @@
 package com.alertastrafico.alertatrfico.XML;
 
-import android.util.Xml;
-
-import com.alertastrafico.alertatrfico.DataBase.TraficoDB;
+import com.alertastrafico.alertatrfico.DataBase.HelperDB;
 import com.alertastrafico.alertatrfico.XML.ParserXML.DGTIncidenciasXMLParser;
 
-import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.text.ParseException;
 
 /**
@@ -25,8 +20,8 @@ public class XMLParseController {
         dgtIncidenciasXMLParser = new DGTIncidenciasXMLParser();
     }
 
-    public void parseDGTIncidenciasXMLParser(InputStream stream, TraficoDB traficoDB) throws IOException, XmlPullParserException, ParseException {
-        dgtIncidenciasXMLParser.parse(stream, traficoDB);
+    public void parseDGTIncidenciasXMLParser(InputStream stream, HelperDB helperDB) throws IOException, XmlPullParserException, ParseException {
+        dgtIncidenciasXMLParser.parse(stream, helperDB);
     }
 
     public DGTIncidenciasXMLParser getDgtIncidenciasXMLParser() {

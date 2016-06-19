@@ -2,7 +2,7 @@ package com.alertastrafico.alertatrfico.XML.ParserXML;
 
 import android.util.Xml;
 
-import com.alertastrafico.alertatrfico.DataBase.TraficoDB;
+import com.alertastrafico.alertatrfico.DataBase.HelperDB;
 import com.alertastrafico.alertatrfico.XML.AdapterXML.DGTIncidenciasAdapterXML;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -11,10 +11,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 
-import static com.alertastrafico.alertatrfico.Utils.UtilsJava.stringToDate;
 import static com.alertastrafico.alertatrfico.Utils.UtilsXML.readString;
 import static com.alertastrafico.alertatrfico.Utils.UtilsXML.skip;
 
@@ -32,19 +29,19 @@ public class DGTIncidenciasXMLParser {
     }
 
 
-    public void parse(InputStream in, TraficoDB traficoDB) throws XmlPullParserException, IOException, ParseException {
+    public void parse(InputStream in, HelperDB helperDB) throws XmlPullParserException, IOException, ParseException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
-            readRaiz(parser, traficoDB);
+            readRaiz(parser, helperDB);
         } finally {
             in.close();
         }
     }
 
-    private void readRaiz(XmlPullParser parser, TraficoDB traficoDB) throws XmlPullParserException, IOException, ParseException {
+    private void readRaiz(XmlPullParser parser, HelperDB helperDB) throws XmlPullParserException, IOException, ParseException {
 
 
         parser.require(XmlPullParser.START_TAG, ns, "raiz");
@@ -56,7 +53,7 @@ public class DGTIncidenciasXMLParser {
             // Starts by looking for the entry tag
             if (name.equals("incidencia")) {
                 //this.incidencias.add(readIncidencia(parser));
-                readIncidencia(parser, traficoDB);
+                readIncidencia(parser, helperDB);
             } else {
                 skip(parser);
             }
@@ -66,7 +63,7 @@ public class DGTIncidenciasXMLParser {
 
     // Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
     // to their respective "read" methods for processing. Otherwise, skips the tag.
-    private void readIncidencia(XmlPullParser parser, TraficoDB traficoDB) throws XmlPullParserException, IOException, ParseException {
+    private void readIncidencia(XmlPullParser parser, HelperDB helperDB) throws XmlPullParserException, IOException, ParseException {
 
         DGTIncidenciasAdapterXML dgtIncidenciasAdapterXML = new DGTIncidenciasAdapterXML();
 
@@ -116,7 +113,7 @@ public class DGTIncidenciasXMLParser {
             }
         }
         //return dgtIncidenciasAdapterXML;
-        traficoDB.setIncidencia(dgtIncidenciasAdapterXML.getTipo(), dgtIncidenciasAdapterXML.getAutonomia(), dgtIncidenciasAdapterXML.getProvincia(), dgtIncidenciasAdapterXML.getCausa(), dgtIncidenciasAdapterXML.getPoblacion(), dgtIncidenciasAdapterXML.getFechahora_ini(),
+        helperDB.setIncidencia(dgtIncidenciasAdapterXML.getTipo(), dgtIncidenciasAdapterXML.getAutonomia(), dgtIncidenciasAdapterXML.getProvincia(), dgtIncidenciasAdapterXML.getCausa(), dgtIncidenciasAdapterXML.getPoblacion(), dgtIncidenciasAdapterXML.getFechahora_ini(),
                 dgtIncidenciasAdapterXML.getNivel(), dgtIncidenciasAdapterXML.getCarretera(), dgtIncidenciasAdapterXML.getPk_inicial(), dgtIncidenciasAdapterXML.getPk_final(), dgtIncidenciasAdapterXML.getSentido(), dgtIncidenciasAdapterXML.getHacia(),
                 dgtIncidenciasAdapterXML.getRef_incidencia(), dgtIncidenciasAdapterXML.getVersion_incidencia(), dgtIncidenciasAdapterXML.getX(), dgtIncidenciasAdapterXML.getY(), dgtIncidenciasAdapterXML.getTipolocalizacion());
     }
