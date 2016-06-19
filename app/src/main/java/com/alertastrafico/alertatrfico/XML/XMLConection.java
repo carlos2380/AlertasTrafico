@@ -55,9 +55,9 @@ public class XMLConection {
             conn.connect();
             return conn.getInputStream();
         } finally {
-            /*if (stream != null) {
+            if (stream != null) {
                 stream.close();
-            }*/
+            }
         }
     }
 

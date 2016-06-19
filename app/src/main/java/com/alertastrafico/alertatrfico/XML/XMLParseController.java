@@ -2,6 +2,7 @@ package com.alertastrafico.alertatrfico.XML;
 
 import android.util.Xml;
 
+import com.alertastrafico.alertatrfico.DataBase.TraficoDB;
 import com.alertastrafico.alertatrfico.XML.ParserXML.DGTIncidenciasXMLParser;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -24,8 +25,8 @@ public class XMLParseController {
         dgtIncidenciasXMLParser = new DGTIncidenciasXMLParser();
     }
 
-    public void parseDGTIncidenciasXMLParser(InputStream stream) throws IOException, XmlPullParserException, ParseException {
-        dgtIncidenciasXMLParser.parse(stream);
+    public void parseDGTIncidenciasXMLParser(InputStream stream, TraficoDB traficoDB) throws IOException, XmlPullParserException, ParseException {
+        dgtIncidenciasXMLParser.parse(stream, traficoDB);
     }
 
     public DGTIncidenciasXMLParser getDgtIncidenciasXMLParser() {
